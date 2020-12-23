@@ -1,0 +1,53 @@
+# input data
+
+def repeating_dec_sol(numerator, denominator):
+    negative = False
+    if denominator == 0:
+        return 'Undefined'
+    if numerator == 0:
+        return '0'
+    if numerator * denominator < 0:
+        negative = True
+    if numerator % denominator == 0:
+        return str(int(numerator / denominator))
+
+    num = abs(numerator)
+    den = abs(denominator)
+
+    result = ""
+    result += str(num // den)
+    result += "."
+
+    quotient_num = []
+    while num:
+        remainder = num % den
+        if remainder == 0:
+            for i in quotient_num:
+                result += str(i[-1])
+            break
+        num = remainder * 10
+        quotient = num // den
+
+        if [num, quotient] not in quotient_num:
+            quotient_num.append([num, quotient])
+
+        elif [num, quotient] in quotient_num:
+            index = quotient_num.index([num, quotient])
+            for i in quotient_num[:index]:
+                result += str(i[-1])
+            result += "("
+            for i in quotient_num[index:]:
+                result += str(i[-1])
+            result += ")"
+            break
+            if negative:
+                result = "-" + result
+
+    return result
+
+
+a = str(input())
+line = [int(d) for d in a.split('/') if d.isdigit()]
+numerator = line[0]
+denominator = line[1]
+print(repeating_dec_sol(numerator, denominator))
