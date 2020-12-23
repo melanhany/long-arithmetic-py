@@ -1,0 +1,4 @@
+# input data
+a = str(input())
+line = [int(d) for d in a.split(' ') if d.isdigit()]
+print(line[0]%line[1])
